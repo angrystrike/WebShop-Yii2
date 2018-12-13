@@ -8,9 +8,12 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
-  font-weight:400px;
+  font-weight: 400;
+}
+
+.del-item {
+  cursor: pointer;
 }
 
 ul li {
@@ -904,13 +907,11 @@ h2.title {
 .product-overlay {
   background:#FE980F;
   top: 0;
-  display: none;
   height: 0;
   position: absolute;
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
 }
 
 .single-products:hover .product-overlay {
@@ -918,6 +919,9 @@ h2.title {
   height:100%;
 }
 
+.test {
+  display: none;
+}
 
 .product-overlay .overlay-content {
   bottom: 0;

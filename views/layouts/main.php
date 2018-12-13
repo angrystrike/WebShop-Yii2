@@ -2,11 +2,11 @@
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\assets\ltAppAsset;
+use yii\bootstrap\modal;
 
 AppAsset::register($this);
 ltAppAsset::register($this);
@@ -85,11 +85,13 @@ ltAppAsset::register($this);
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                            <?php if (!Yii::$app->user->isGuest) : ?>
+                            <li><a href="<?= Url::to(['site/logout']) ?>"><i class="fa fa-user"></i><?= Yii::$app->user->identity['username'] ?>(Выход user)</a></li>
+                            <?php endif; ?>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href="#" onclick="return getCart('<?= Url::base() ?>'); "><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="<?= Url::to(['/admin']) ?>"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -301,8 +303,21 @@ ltAppAsset::register($this);
             </div>
         </div>
     </div>
-
+    <div class="test"><?= Url::base() ?></div>
 </footer><!--/Footer-->
+<?php
+    Modal::begin([
+        'header' => '<h2>Корзина</h2>',
+        'id' => 'cart',
+        'size' => 'modal-lg',
+        'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+        <a href="' . Url::to(['cart/view']) . '" class="btn btn-success">Оформить заказ</a>
+        <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>
+        ',
+    ]);
+    Modal::end();
+?>
+
 <?php $this->endBody() ?>
 </body>
 </html>

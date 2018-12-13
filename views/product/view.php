@@ -4,6 +4,7 @@
 
 use app\components\MenuWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 <section>
@@ -98,15 +99,15 @@ use yii\helpers\Html;
                             <span>
 									<span>US $<?= $product->price?></span>
 									<label>Quantity:</label>
-									<input type="text" value="1" />
-									<button type="button" class="btn btn-fefault cart">
+									<input type="text" value="1" id="qty"/>
+									<a href="#" data-id="<?= $product->id ?>" class="btn btn-default add-to-cart cart" data-url=<?= Url::base() ?>>
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
-                                    </button>
+                                    </a>
 								</span>
                             <p><b>Availability:</b> In Stock</p>
                             <p><b>Condition:</b> New</p>
-                            <p><b>Brand:</b> <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $product->category->id]) ?>"><?= $product->category->name?></a></p>
+                            <p><b>Brand:</b> <a href="<?= Url::to(['category/view', 'id' => $product->category->id]) ?>"><?= $product->category->name?></a></p>
                             <?= Html::img("@web/images/product-details/share.png", ['class' => 'share img-responsive'])?>
                         </div><!--/product-information-->
                     </div>
@@ -127,7 +128,7 @@ use yii\helpers\Html;
                                             <div class="productinfo text-center">
                                                 <?= Html::img("@web/images/products/{$hit->img}", ['alt' => $hit->name])?>
                                                 <h2>$<?= $hit->price?></h2>
-                                                <p><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $hit->id])?>"><?= $hit->name?></a></p>
+                                                <p><a href="<?= Url::to(['product/view', 'id' => $hit->id])?>"><?= $hit->name?></a></p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                             </div>
                                         </div>

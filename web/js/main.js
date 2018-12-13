@@ -1,21 +1,78 @@
-/*price range*/
-
 $('#sl2').slider();
 
 $('.catalog').dcAccordion();
 
-$('.add-to-cart').on('click', function (e) {
-    e.preventDefault();
+function getCart(baseUrl) {
+    $.ajax({
+        url: baseUrl.concat('/index.php/cart/show'),
+        type: 'GET',
+        success: function(res) {
+            showCart(res);
+        },
+        error: function () {
+            alert('error from getCart');
+        }
+    });
+    return false;
+}
+
+function showCart(cart) {
+    $('#cart .modal-body').html(cart);
+    $('#cart').modal();
+}
+
+$('#cart .modal-body').on('click', '.del-item', function() {
+    var baseUrl = $(this).data('url');
     var id = $(this).data('id');
     $.ajax({
-        url: 'cart/add',
+        url: baseUrl.concat('/index.php/cart/del-item'),
         data: {id: id},
         type: 'GET',
         success: function(res) {
-            console.log(res);
+            showCart(res);
         },
         error: function () {
-            alert('Error');
+            alert('error from del-item');
+        }
+    });
+});
+
+// http://localhost:8080/course/web/index.php/product/index.php/cart/clear
+
+function clearCart() {
+    var baseUrl = $(".test").text();
+    //alert(baseUrl);
+    $.ajax({
+        url: baseUrl.concat('/index.php/cart/clear'),
+        type: 'GET',
+        success: function(res) {
+            showCart(res);
+        },
+        error: function () {
+            alert('error from clearCart');
+        }
+    });
+}
+
+$('.add-to-cart').on('click', function (e) {
+    e.preventDefault();
+    var baseUrl = $(this).data('url');
+    var id = $(this).data('id'),
+        qty = $('#qty').val();
+    $.ajax({
+        url: baseUrl.concat('/index.php/cart/add'),
+        data: {id: id, qty: qty},
+        type: 'GET',
+        success: function(res) {
+            showCart(res);
+        },
+        error: function (response) {
+            alert('error from add-to-cart');
+        },
+        statusCode: {
+            500: function() {
+                alert("error 500");
+            }
         }
     });
 });
