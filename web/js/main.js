@@ -1,6 +1,8 @@
 $('#sl2').slider();
 
-$('.catalog').dcAccordion();
+$('.catalog').dcAccordion({
+    speed: 300
+});
 
 function getCart(baseUrl) {
     $.ajax({
@@ -21,7 +23,8 @@ function showCart(cart) {
     $('#cart').modal();
 }
 
-$('#cart .modal-body').on('click', '.del-item', function() {
+// .modal-body
+$('#cart').on('click', '.del-item', function() {
     var baseUrl = $(this).data('url');
     var id = $(this).data('id');
     $.ajax({
@@ -37,11 +40,8 @@ $('#cart .modal-body').on('click', '.del-item', function() {
     });
 });
 
-// http://localhost:8080/course/web/index.php/product/index.php/cart/clear
-
 function clearCart() {
     var baseUrl = $(".test").text();
-    //alert(baseUrl);
     $.ajax({
         url: baseUrl.concat('/index.php/cart/clear'),
         type: 'GET',
@@ -57,6 +57,7 @@ function clearCart() {
 $('.add-to-cart').on('click', function (e) {
     e.preventDefault();
     var baseUrl = $(this).data('url');
+
     var id = $(this).data('id'),
         qty = $('#qty').val();
     $.ajax({

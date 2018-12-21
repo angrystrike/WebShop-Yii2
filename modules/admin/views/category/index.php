@@ -16,14 +16,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'value' => function($data){
+                    return $data->getCategoryName();
+                },
+            ],
             'name',
             'keywords',
             'description',

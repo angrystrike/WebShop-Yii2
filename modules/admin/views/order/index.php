@@ -35,12 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
 
             ],
-            //'status',
-            //'name',
-            //'email:email',
-            //'phone',
-            //'address',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -21,34 +21,32 @@
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
-                <tr>
-                    <th>Фото</th>
-                    <th>Название</th>
-                    <th>Кол-во</th>
-                    <th>Цена</th>
-                    <th>Сумма</th>
-                    <th><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></th>
-                </tr>
+                    <tr>
+                        <th>Фото</th>
+                        <th>Название</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($session['cart'] as $id => $item) : ?>
+                    <?php foreach ($session['cart'] as $id => $item) : ?>
+                        <tr>
+                            <td><?= Html::img("@web/images/products/{$item['img']}", ['alt' => $item['name'], 'height' => 50]) ?></td>
+                            <td><a href="<?= Url::to(['product/view', 'id' => $id]) ?>"><?= $item['name'] ?></a></td>
+                            <td><?= $item['qty'] ?></td>
+                            <td><?= $item['price'] ?></td>
+                            <td><?= $item['qty'] * $item['price'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                     <tr>
-                        <td><?= Html::img("@web/images/products/{$item['img']}", ['alt' => $item['name'], 'height' => 50]) ?></td>
-                        <td><a href="<?= Url::to(['product/view', 'id' => $id]) ?>"><?= $item['name'] ?></a></td>
-                        <td><?= $item['qty'] ?></td>
-                        <td><?= $item['price'] ?></td>
-                        <td><?= $item['qty'] * $item['price'] ?></td>
-                        <td><span data-id="<?= $id ?>" data-url="<?= Url::base() ?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>
+                        <td colspan="4">Итого: </td>
+                        <td><?= $session['cart.qty'] ?></td>
                     </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td colspan="5">Итого: </td>
-                    <td><?= $session['cart.qty'] ?></td>
-                </tr>
-                <tr>
-                    <td colspan="5">На сумму: </td>
-                    <td><?= $session['cart.sum'] ?></td>
-                </tr>
+                    <tr>
+                        <td colspan="4">На сумму: </td>
+                        <td><?= $session['cart.sum'] ?></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -1,18 +1,14 @@
-<?php
-use yii\helpers\Html;
-use yii\helpers\Url;
-?>
-    <div class="table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <thead>
             <tr>
                 <th>Название</th>
                 <th>Кол-во</th>
                 <th>Цена</th>
                 <th>Сумма</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             <?php foreach ($session['cart'] as $id => $item) : ?>
                 <tr>
                     <td><?= $item['name'] ?></td>
@@ -29,6 +25,6 @@ use yii\helpers\Url;
                 <td colspan="3">На сумму: </td>
                 <td><?= $session['cart.sum'] ?></td>
             </tr>
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</div>
